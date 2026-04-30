@@ -2,8 +2,13 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import EmbedForm from "./components/embed-form";
 import ExtractForm from "./components/extract-form";
 import { DetectiveIcon } from "@phosphor-icons/react";
+import { useEffect } from "react";
 
 function App() {
+  useEffect(() => {
+    document.title = "Stego";
+  }, []);
+
   return (
     <div className="flex min-h-screen justify-center">
       <div className="w-full max-w-2xl">
