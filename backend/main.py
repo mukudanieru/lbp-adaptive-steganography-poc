@@ -6,7 +6,7 @@ from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 
-from routers.steganography import router as stego_router
+from routers.stego import router as stego_router
 
 app = FastAPI(
     title="Adaptive LSB Steganography API",
@@ -36,6 +36,6 @@ async def global_exception_handler(request: Request, exc: Exception) -> JSONResp
     )
 
 
-@app.get("/health")
+@app.get("/api/health")
 async def health() -> dict:
     return {"status": "ok"}

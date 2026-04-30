@@ -7,13 +7,18 @@ from fastapi import APIRouter, File, Form, HTTPException, UploadFile
 from fastapi.responses import Response
 from pydantic import BaseModel
 
-from services.steganography import run_embed, run_extract
+from services.stego import run_embed, run_extract, get_capacity
 
 router = APIRouter(prefix="/api", tags=["steganography"])
 
 
 class ExtractResponse(BaseModel):
     message: str
+
+ 
+class CapacityResponse(BaseModel):
+    capacity_bits: int
+    capacity_chars: int
 
 
 @router.post("/embed")
@@ -86,3 +91,24 @@ async def extract(
         raise HTTPException(status_code=400, detail=str(e))
 
     return ExtractResponse(message=message)
+
+
+@router.post("/capacity", response_model=CapacityResponse)
+async def capacity(
+    image: UploadFile = File(..., description="Cover image (.png, .bmp, .tiff)"),
+) -> CapacityResponse:
+    """
+    Calculate the maximum embeddable message size for a given image.
+    Returns usable capacity in bits and characters after accounting for the 32-bit header.
+    """
+    image_bytes = await image.read()
+ 
+    try:
+        capacity_bits, capacity_chars = get_capacity(
+            image_bytes=image_bytes,
+            filename=image.filename or "",
+        )
+    except ValueError as e:
+        raise HTTPException(status_code=400, detail=str(e))
+ 
+    return CapacityResponse(capacity_bits=capacity_bits, capacity_chars=capacity_chars)
