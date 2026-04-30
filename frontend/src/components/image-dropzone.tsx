@@ -1,3 +1,4 @@
+import { ImageIcon } from "@phosphor-icons/react";
 import { useDropzone } from "react-dropzone";
 
 type ImageDropzoneProps = {
@@ -14,44 +15,52 @@ export default function ImageDropzone({ preview, onDrop }: ImageDropzoneProps) {
     onDrop(file, url);
   };
 
-  const { getRootProps, getInputProps, isDragActive, fileRejections } =
-    useDropzone({
-      onDrop: handleDrop,
-      multiple: false,
-      accept: {
-        "image/png": [".png"],
-        "image/bmp": [".bmp"],
-        "image/tiff": [".tiff", ".tif"],
-      },
-    });
+  const { getRootProps, getInputProps, isDragActive } = useDropzone({
+    onDrop: handleDrop,
+    multiple: false,
+    accept: {
+      "image/png": [".png"],
+      "image/bmp": [".bmp"],
+      "image/tiff": [".tiff", ".tif"],
+    },
+  });
 
   return (
-    <div className="flex flex-col items-center gap-2">
-      <div
-        {...getRootProps()}
-        className={`relative flex h-64 w-64 cursor-pointer items-center justify-center overflow-hidden rounded-lg border-2 border-dashed ${
-          isDragActive ? "border-blue-400" : ""
-        }`}
-      >
-        <input {...getInputProps()} />
+    <div
+      {...getRootProps()}
+      className={`relative size-64 cursor-pointer overflow-hidden rounded-lg border-2 border-dashed transition-colors ${
+        isDragActive
+          ? "border-primary bg-primary/5"
+          : "border-border hover:border-primary/50"
+      }`}
+    >
+      <input {...getInputProps()} />
 
-        {preview && (
+      {preview ? (
+        <>
           <img
             src={preview}
             className="absolute inset-0 h-full w-full object-cover"
           />
-        )}
-
-        <div className="absolute inset-0 flex items-center justify-center bg-black/40 text-sm text-white opacity-0 transition hover:opacity-100">
-          Drop PNG, BMP, or TIFF image
+          <div className="bg-background/70 text-foreground absolute inset-0 flex flex-col items-center justify-center gap-2 opacity-0 transition-opacity hover:opacity-100">
+            <ImageIcon className="h-6 w-6" />
+            <span className="text-sm font-medium">Replace image</span>
+          </div>
+        </>
+      ) : (
+        <div className="absolute inset-0 flex flex-col items-center justify-center gap-3 p-6 text-center">
+          <div className="bg-muted rounded-full p-3">
+            <ImageIcon className="text-muted-foreground h-6 w-6" />
+          </div>
+          <div>
+            <p className="text-foreground text-sm font-medium">
+              {isDragActive ? "Drop image here" : "Drag & drop an image"}
+            </p>
+            <p className="text-muted-foreground mt-1 text-xs">
+              PNG, BMP, or TIFF &mdash; 512 × 512 px
+            </p>
+          </div>
         </div>
-      </div>
-
-      {/* 🔹 basic error feedback */}
-      {fileRejections.length > 0 && (
-        <p className="text-sm text-red-500">
-          Only PNG, BMP, or TIFF images are allowed.
-        </p>
       )}
     </div>
   );

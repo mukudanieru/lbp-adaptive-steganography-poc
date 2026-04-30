@@ -20,7 +20,7 @@ export async function embedMessage(
   image: File,
   message: string,
   password: string,
-): Promise<Blob> {
+): Promise<{ blob: Blob; filename: string }> {
   const formData = new FormData();
 
   formData.append("image", image);
@@ -34,7 +34,18 @@ export async function embedMessage(
     responseType: "blob",
   });
 
-  return response.data;
+  const disposition = response.headers["content-disposition"];
+  let filename = "stego";
+
+  if (disposition) {
+    const match = disposition.match(/filename="?([^"]+)"?/);
+    if (match) filename = match[1];
+  }
+
+  return {
+    blob: response.data,
+    filename,
+  };
 }
 
 export async function extractMessage(
