@@ -4,7 +4,6 @@ import { useMutation, useQuery } from "@tanstack/react-query";
 import { getCapacity, embedMessage } from "@/api/stego";
 import { Button } from "./ui/button";
 import { Textarea } from "./ui/textarea";
-import { Input } from "./ui/input";
 import { Field, FieldLabel, FieldDescription } from "./ui/field";
 import ImageDropzone from "./image-dropzone";
 import { toast } from "sonner";
@@ -12,6 +11,7 @@ import { Progress } from "./ui/progress";
 import { Spinner } from "./ui/spinner";
 import { Skeleton } from "./ui/skeleton";
 import { DownloadIcon } from "@phosphor-icons/react";
+import PasswordInput from "./password-input";
 
 export default function EmbedForm() {
   const [file, setFile] = useState<File | null>(null);
@@ -122,9 +122,8 @@ export default function EmbedForm() {
 
       <Field>
         <FieldLabel htmlFor="password">Password</FieldLabel>
-        <Input
+        <PasswordInput
           id="password"
-          type="password"
           placeholder="Password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
@@ -160,7 +159,11 @@ export default function EmbedForm() {
         )}
       </Field>
 
-      <Button type="submit" className="w-full" disabled={isPending}>
+      <Button
+        type="submit"
+        className="w-full"
+        disabled={isPending || !file || !message.trim() || !password.trim()}
+      >
         {isPending && <Spinner />}
         {isPending ? "Embedding..." : "Embed"}
       </Button>

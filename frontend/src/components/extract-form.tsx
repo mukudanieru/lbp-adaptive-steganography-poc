@@ -1,13 +1,13 @@
 import { extractMessage } from "@/api/stego";
 import ImageDropzone from "@/components/image-dropzone";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
 import { Field, FieldLabel } from "@/components/ui/field";
 import { Spinner } from "@/components/ui/spinner";
 import { CopyIcon, CheckIcon } from "@phosphor-icons/react";
 import { useMutation } from "@tanstack/react-query";
 import { useState } from "react";
 import { toast } from "sonner";
+import PasswordInput from "./password-input";
 
 export default function ExtractForm() {
   const [file, setFile] = useState<File | null>(null);
@@ -57,16 +57,19 @@ export default function ExtractForm() {
 
       <Field>
         <FieldLabel htmlFor="password">Password</FieldLabel>
-        <Input
+        <PasswordInput
           id="password"
-          type="password"
           placeholder="Password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
       </Field>
 
-      <Button type="submit" disabled={isPending} className="w-full">
+      <Button
+        type="submit"
+        disabled={isPending || !file || !password.trim()}
+        className="w-full"
+      >
         {isPending && <Spinner />}
         {isPending ? "Extracting..." : "Extract"}
       </Button>

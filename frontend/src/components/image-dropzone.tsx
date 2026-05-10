@@ -15,6 +15,28 @@ export default function ImageDropzone({ preview, onDrop }: ImageDropzoneProps) {
     onDrop(file, url);
   };
 
+  // const handleDrop = (files: File[]) => {
+  //   const file = files[0];
+  //   if (!file) return;
+
+  //   const url = URL.createObjectURL(file);
+  //   const img = new Image();
+
+  //   img.onload = () => {
+  //     URL.revokeObjectURL(url);
+  //     if (img.width !== 512 || img.height !== 512) {
+  //       toast.error(
+  //         `Image must be 512 \u00D7 512 px. Got ${img.width} \u00D7 ${img.height}.`,
+  //       );
+  //       return;
+  //     }
+  //     const previewUrl = URL.createObjectURL(file);
+  //     onDrop(file, previewUrl);
+  //   };
+
+  //   img.src = url;
+  // };
+
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
     onDrop: handleDrop,
     multiple: false,
@@ -57,7 +79,7 @@ export default function ImageDropzone({ preview, onDrop }: ImageDropzoneProps) {
               {isDragActive ? "Drop image here" : "Drag & drop an image"}
             </p>
             <p className="text-muted-foreground mt-1 text-xs">
-              PNG, BMP, or TIFF &mdash; 512 × 512 px
+              PNG, BMP, or TIFF &mdash; 512 &times; 512 px
             </p>
           </div>
         </div>
