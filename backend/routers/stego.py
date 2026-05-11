@@ -7,7 +7,7 @@ from fastapi import APIRouter, File, Form, HTTPException, UploadFile
 from fastapi.responses import Response
 from pydantic import BaseModel
 
-from services.stego import run_embed, run_extract, get_capacity
+from services.stego import run_embed, run_extract, get_capacity, run_metrics
 
 router = APIRouter(prefix="/api", tags=["steganography"])
 
@@ -112,3 +112,31 @@ async def capacity(
         raise HTTPException(status_code=400, detail=str(e))
  
     return CapacityResponse(capacity_bits=capacity_bits, capacity_chars=capacity_chars)
+
+
+
+class MetricsResponse(BaseModel):
+    mse: float
+    psnr: float
+    ssim: float
+
+
+@router.post("/metrics", response_model=MetricsResponse)
+async def metrics(
+    cover: UploadFile = File(...),
+    stego: UploadFile = File(...),
+) -> MetricsResponse:
+    cover_bytes = await cover.read()
+    stego_bytes = await stego.read()
+
+    try:
+        result = run_metrics(
+            cover_bytes=cover_bytes,
+            cover_filename=cover.filename or "",
+            stego_bytes=stego_bytes,
+            stego_filename=stego.filename or "",
+        )
+    except ValueError as e:
+        raise HTTPException(status_code=400, detail=str(e))
+
+    return MetricsResponse(**result)

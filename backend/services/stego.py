@@ -14,6 +14,8 @@ from stego_core.embedding import embed_message
 from stego_core.extraction import extract_message
 
 
+from stego_core.eval import compute_mse, compute_psnr, compute_ssim
+
 def run_embed(
     image_bytes: bytes, filename: str, message: str, password: str
 ) -> tuple[bytes, str]:
@@ -114,3 +116,37 @@ def get_capacity(
  
     return usable_bits, usable_chars
  
+
+
+def run_metrics(
+    cover_bytes: bytes,
+    cover_filename: str,
+    stego_bytes: bytes,
+    stego_filename: str,
+) -> dict:
+    """
+    Compute image quality metrics between cover and stego images.
+
+    Args:
+        cover_bytes: Raw bytes of the cover image
+        cover_filename: Original filename of the cover image
+        stego_bytes: Raw bytes of the stego image
+        stego_filename: Original filename of the stego image
+
+    Returns:
+        Dict with mse, psnr, ssim values
+
+    Raises:
+        ValueError: For unsupported file types, corrupt images, or shape mismatch
+    """
+    cover_img: np.ndarray = load_img_from_bytes(cover_bytes, cover_filename)
+    stego_img: np.ndarray = load_img_from_bytes(stego_bytes, stego_filename)
+
+    if cover_img.shape != stego_img.shape:
+        raise ValueError("Cover and stego images must have the same dimensions.")
+
+    return {
+        "mse": compute_mse(cover_img, stego_img),
+        "psnr": compute_psnr(cover_img, stego_img),
+        "ssim": compute_ssim(cover_img, stego_img),
+    }
