@@ -1,6 +1,10 @@
 import { api } from "@/lib/api";
 
-import type { CapacityResponse, ExtractResponse } from "@/types/stego";
+import type {
+  CapacityResponse,
+  ExtractResponse,
+  MetricsResponse,
+} from "@/types/stego";
 
 export async function getCapacity(image: File): Promise<CapacityResponse> {
   const formData = new FormData();
@@ -61,6 +65,21 @@ export async function extractMessage(
     headers: {
       "Content-Type": "multipart/form-data",
     },
+  });
+
+  return response.data;
+}
+
+export async function getMetrics(
+  cover: File,
+  stego: File,
+): Promise<MetricsResponse> {
+  const formData = new FormData();
+  formData.append("cover", cover);
+  formData.append("stego", stego);
+
+  const response = await api.post<MetricsResponse>("/metrics", formData, {
+    headers: { "Content-Type": "multipart/form-data" },
   });
 
   return response.data;
