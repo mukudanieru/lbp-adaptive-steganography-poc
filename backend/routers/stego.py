@@ -6,8 +6,7 @@ Defines /embed and /extract endpoints
 from fastapi import APIRouter, File, Form, HTTPException, UploadFile
 from fastapi.responses import Response
 from pydantic import BaseModel
-
-from services.stego import run_embed, run_extract, get_capacity, run_metrics
+from services.stego import get_capacity, run_embed, run_extract, run_metrics
 
 router = APIRouter(prefix="/api", tags=["steganography"])
 
@@ -15,7 +14,7 @@ router = APIRouter(prefix="/api", tags=["steganography"])
 class ExtractResponse(BaseModel):
     message: str
 
- 
+
 class CapacityResponse(BaseModel):
     capacity_bits: int
     capacity_chars: int
@@ -23,7 +22,7 @@ class CapacityResponse(BaseModel):
 
 @router.post("/embed")
 async def embed(
-    image: UploadFile = File(..., description="Cover image (.png, .bmp, .tiff)"),
+    image: UploadFile = File(..., description="Cover image (.png, .bmp, .tiff)"),  # noqa: B008
     message: str = Form(..., description="Secret ASCII message to embed"),
     password: str = Form(..., description="Password for pixel order derivation"),
 ) -> Response:
@@ -68,7 +67,7 @@ async def embed(
 
 @router.post("/extract", response_model=ExtractResponse)
 async def extract(
-    image: UploadFile = File(..., description="Stego-image (.png, .bmp, .tiff)"),
+    image: UploadFile = File(..., description="Stego-image (.png, .bmp, .tiff)"),  # noqa: B008
     password: str = Form(..., description="Password used during embedding"),
 ) -> ExtractResponse:
     """
@@ -95,14 +94,14 @@ async def extract(
 
 @router.post("/capacity", response_model=CapacityResponse)
 async def capacity(
-    image: UploadFile = File(..., description="Cover image (.png, .bmp, .tiff)"),
+    image: UploadFile = File(..., description="Cover image (.png, .bmp, .tiff)"),  # noqa: B008
 ) -> CapacityResponse:
     """
     Calculate the maximum embeddable message size for a given image.
     Returns usable capacity in bits and characters after accounting for the 32-bit header.
     """
     image_bytes = await image.read()
- 
+
     try:
         capacity_bits, capacity_chars = get_capacity(
             image_bytes=image_bytes,
@@ -110,9 +109,8 @@ async def capacity(
         )
     except ValueError as e:
         raise HTTPException(status_code=400, detail=str(e))
- 
-    return CapacityResponse(capacity_bits=capacity_bits, capacity_chars=capacity_chars)
 
+    return CapacityResponse(capacity_bits=capacity_bits, capacity_chars=capacity_chars)
 
 
 class MetricsResponse(BaseModel):
@@ -123,8 +121,8 @@ class MetricsResponse(BaseModel):
 
 @router.post("/metrics", response_model=MetricsResponse)
 async def metrics(
-    cover: UploadFile = File(...),
-    stego: UploadFile = File(...),
+    cover: UploadFile = File(...),  # noqa: B008
+    stego: UploadFile = File(...),  # noqa: B008
 ) -> MetricsResponse:
     cover_bytes = await cover.read()
     stego_bytes = await stego.read()

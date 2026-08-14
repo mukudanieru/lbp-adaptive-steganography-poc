@@ -3,11 +3,12 @@ Local Binary Pattern (LBP) module
 Handles texture analysis and pixel classification
 """
 
-from typing import List, Tuple, Literal
+from typing import Literal
+
 import numpy as np
 
 
-def get_neighbors(image: np.ndarray, x: int, y: int) -> List[Tuple[int, int]]:
+def get_neighbors(image: np.ndarray, x: int, y: int) -> list[tuple[int, int]]:
     """
     Get valid neighbor coordinates for a pixel.
 
@@ -37,7 +38,7 @@ def get_neighbors(image: np.ndarray, x: int, y: int) -> List[Tuple[int, int]]:
         raise ValueError("image must have at least 2 dimensions")
 
     if not isinstance(x, (int, np.integer)) or not isinstance(y, (int, np.integer)):
-        raise ValueError("coordinates must be integers")
+        raise ValueError("coordinates must be integers")  # noqa: TRY004
 
     height, width = image.shape
 
@@ -47,9 +48,9 @@ def get_neighbors(image: np.ndarray, x: int, y: int) -> List[Tuple[int, int]]:
     if not (0 <= y < height):
         raise ValueError(f"Y coordinate must be between 0 and {height - 1}")
 
-    neighbors: List[Tuple[int, int]] = []
+    neighbors: list[tuple[int, int]] = []
 
-    directions: List[Tuple[int, int]] = [
+    directions: list[tuple[int, int]] = [
         (-1, -1),
         (-1, 0),
         (-1, 1),
@@ -68,7 +69,7 @@ def get_neighbors(image: np.ndarray, x: int, y: int) -> List[Tuple[int, int]]:
     return neighbors
 
 
-def compare_neighbors(center_value: int, neighbor_values: List[int]) -> List[int]:
+def compare_neighbors(center_value: int, neighbor_values: list[int]) -> list[int]:
     """
     Compare neighbor values with center pixel value.
 
@@ -91,7 +92,7 @@ def compare_neighbors(center_value: int, neighbor_values: List[int]) -> List[int
     return [1 if n >= center_value else 0 for n in neighbor_values]
 
 
-def count_transitions(binary_pattern: List[int]) -> int:
+def count_transitions(binary_pattern: list[int]) -> int:
     """
     Count transitions in a circular binary pattern.
 
@@ -175,9 +176,9 @@ def compute_lbp_for_pixel(rgb_img: np.ndarray, x: int, y: int) -> int:
     # Core LBP Logic
     # -------------------------
     center_value: int = int(rgb_img[y, x])
-    neighbors_coords: List[Tuple[int, int]] = get_neighbors(rgb_img, x, y)
-    neighbor_values: List[int] = [int(rgb_img[ny, nx]) for ny, nx in neighbors_coords]
-    binary_pattern: List[int] = compare_neighbors(center_value, neighbor_values)
+    neighbors_coords: list[tuple[int, int]] = get_neighbors(rgb_img, x, y)
+    neighbor_values: list[int] = [int(rgb_img[ny, nx]) for ny, nx in neighbors_coords]
+    binary_pattern: list[int] = compare_neighbors(center_value, neighbor_values)
     transition_count: int = count_transitions(binary_pattern)
 
     return classify_texture(transition_count)
