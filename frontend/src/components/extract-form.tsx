@@ -42,7 +42,7 @@ export default function ExtractForm() {
   return (
     <form onSubmit={handleSubmit} className="w-full space-y-4">
       <div className="flex flex-col items-center space-y-1">
-        <p className="text-sm font-medium">Stego image</p>
+        <p className="text-sm font-medium">Stego Image</p>
         <ImageDropzone
           preview={preview}
           onDrop={(file, url) => {

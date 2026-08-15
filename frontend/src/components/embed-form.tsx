@@ -108,13 +108,13 @@ export default function EmbedForm() {
       <div className="space-y-4">
         <div className="flex flex-col items-center gap-4 sm:flex-row sm:justify-center">
           <div className="flex flex-col items-center space-y-1">
-            <p className="text-sm font-medium">Cover image</p>
+            <p className="text-sm font-medium">Cover Image</p>
             <ImageDropzone preview={preview} onDrop={handleDrop} />
           </div>
 
           {(isPending || stego) && (
             <div className="flex flex-col items-center space-y-1">
-              <p className="text-sm font-medium">Stego image</p>
+              <p className="text-sm font-medium">Stego Image</p>
               {isPending ? (
                 <Skeleton className="size-64 rounded-lg" />
               ) : (

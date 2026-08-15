@@ -3,20 +3,22 @@ import EmbedForm from "./components/embed-form";
 import ExtractForm from "./components/extract-form";
 import { DetectiveIcon } from "@phosphor-icons/react";
 import Navbar from "./components/navbar";
+import About from "./components/about";
 
 function App() {
   return (
-    <div className="flex min-h-screen justify-center">
+    <div className="flex min-h-dvh flex-col items-center overflow-x-hidden px-6">
       <Navbar />
 
-      <div className="w-full max-w-2xl">
+      <section className="justify-[safe_center] flex min-h-dvh w-full max-w-2xl flex-col pt-28 pb-14">
         <header className="flex flex-col items-center px-2 py-4">
-          <div className="flex items-center gap-2">
-            <DetectiveIcon className="h-6 w-6" />
-            <h1 className="text-2xl font-semibold tracking-tight">Stego</h1>
+          <div className="flex items-center gap-3">
+            <DetectiveIcon className="h-8 w-8" />
+            <h1 className="text-3xl font-extrabold tracking-tight sm:text-4xl">
+              Stego
+            </h1>
           </div>
-
-          <p className="text-muted-foreground mt-2 text-center text-sm">
+          <p className="text-muted-foreground mt-3 max-w-md text-center text-sm sm:text-base">
             Texture-Adaptive Image Steganography using Local Binary Pattern and
             Pseudorandom Pixel Selection
           </p>
@@ -40,7 +42,9 @@ function App() {
             </TabsContent>
           </Tabs>
         </main>
-      </div>
+      </section>
+
+      <About />
     </div>
   );
 }
