@@ -2,10 +2,13 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import EmbedForm from "./components/embed-form";
 import ExtractForm from "./components/extract-form";
 import { DetectiveIcon } from "@phosphor-icons/react";
+import Navbar from "./components/navbar";
 
 function App() {
   return (
     <div className="flex min-h-screen justify-center">
+      <Navbar />
+
       <div className="w-full max-w-2xl">
         <header className="flex flex-col items-center px-2 py-4">
           <div className="flex items-center gap-2">

@@ -79,7 +79,7 @@ export default function ImageDropzone({ preview, onDrop }: ImageDropzoneProps) {
               {isDragActive ? "Drop image here" : "Drag & drop an image"}
             </p>
             <p className="text-muted-foreground mt-1 text-xs">
-              PNG, BMP, or TIFF &mdash; 512 &times; 512 px
+              PNG, BMP, or TIFF
             </p>
           </div>
         </div>
