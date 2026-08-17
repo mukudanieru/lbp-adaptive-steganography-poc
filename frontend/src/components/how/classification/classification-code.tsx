@@ -1,4 +1,3 @@
-// components/classification-code.tsx
 type ClassificationCodeProps = {
   map: number[][];
   filename?: string;

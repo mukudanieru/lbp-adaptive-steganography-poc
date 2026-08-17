@@ -12,6 +12,8 @@ import ImageCard from "./image-card";
 import { ArrowUpRightIcon } from "@phosphor-icons/react";
 import { ClassificationGrid } from "./classification/classification-grid";
 import { ClassificationCode } from "./classification/classification-code";
+import PseudorandomGrid from "./pseudorandom/pseudorandom-grid";
+import PseudorandomCode from "./pseudorandom/pseudorandom-code";
 
 // STEP 01 DATA
 const preprocessing = [
@@ -49,7 +51,8 @@ const preprocessing = [
 ];
 
 // STEP 02 DATA
-const sample = [
+// STEP 03 DATA
+const sampleClassificationMap = [
   [0, 0, 0, 0, 1, 1, 0, 0],
   [0, 0, 0, 1, 1, 1, 1, 0],
   [0, 0, 1, 1, 0, 1, 1, 0],
@@ -59,6 +62,9 @@ const sample = [
   [0, 0, 0, 1, 1, 0, 0, 0],
   [0, 0, 0, 0, 0, 0, 0, 0],
 ];
+
+// STEP 04 DATA
+// STEP 05 DATA
 
 export default function How() {
   return (
@@ -147,8 +153,8 @@ export default function How() {
           <h2 className="text-2xl font-bold tracking-tight sm:text-3xl">02</h2>
           <div className="flex flex-col gap-7 md:flex-row">
             {/* INFORMATION */}
-            <div className="flex flex-col justify-between gap-6">
-              <div className="flex min-w-0 flex-1 flex-col gap-4">
+            <div className="flex min-w-0 flex-1 flex-col justify-between gap-6">
+              <div className="flex flex-col gap-4">
                 <h3 className="text-base font-bold tracking-tight sm:text-lg">
                   LOCAL BINARY PATTERN
                 </h3>
@@ -188,13 +194,13 @@ export default function How() {
           <div className="mt-10 flex w-full flex-col gap-6 md:flex-row md:items-start">
             {/* VISUALS */}
             <div className="w-full shrink-0 md:w-67">
-              <ClassificationGrid map={sample} />
+              <ClassificationGrid map={sampleClassificationMap} />
             </div>
 
             {/* INFORMATION */}
             <div className="flex min-w-0 flex-1 flex-col md:items-end">
               <div className="flex w-full flex-col gap-4 md:w-min">
-                <ClassificationCode map={sample} />
+                <ClassificationCode map={sampleClassificationMap} />
                 <p className="text-muted-foreground text-sm leading-relaxed sm:text-base">
                   These classifications are then combined to form a map of the
                   image's smooth and rough regions. The map guides the embedding
@@ -203,6 +209,64 @@ export default function How() {
                   classification.
                 </p>
               </div>
+            </div>
+          </div>
+        </div>
+
+        {/* STEP 3 */}
+        <div className="flex flex-col gap-5">
+          <h2 className="text-2xl font-bold tracking-tight sm:text-3xl">03</h2>
+
+          <div className="flex flex-col gap-7 md:flex-row">
+            {/* INFORMATION */}
+            <div className="flex min-w-0 flex-1 flex-col gap-4">
+              <h3 className="text-base font-bold tracking-tight sm:text-lg">
+                PSEUDORANDOM PIXEL SELECTION
+              </h3>
+              <p className="text-muted-foreground text-sm leading-relaxed sm:text-base">
+                Traditional LSB steganography typically embeds secret data by
+                traversing pixels in a predictable, sequential order.
+              </p>
+            </div>
+
+            {/* VISUALS */}
+            <div className="w-full shrink-0 md:w-67">
+              <PseudorandomGrid
+                isPseudorandom={false}
+                map={sampleClassificationMap}
+              />
+            </div>
+          </div>
+
+          <div className="mt-10 flex w-full flex-col gap-6">
+            {/* VISUALS */}
+            <PseudorandomCode />
+
+            {/* INFORMATION */}
+            <p className="text-muted-foreground text-sm leading-relaxed sm:text-base">
+              After hashing the password with SHA-256, the first 8 bytes are
+              converted into a 64-bit integer used to initialize the Mersenne
+              Twister pseudorandom generator. The resulting sequence determines
+              the order in which pixel coordinates are visited during embedding
+              and can be reproduced during extraction with the same password.
+            </p>
+          </div>
+
+          <div className="mt-10 flex flex-col gap-7 md:flex-row">
+            {/* VISUALS */}
+            <div className="w-full shrink-0 md:w-67">
+              <PseudorandomGrid map={sampleClassificationMap} />
+            </div>
+
+            {/* INFORMATION */}
+            <div className="flex min-w-0 flex-1 flex-col gap-4">
+              <p className="text-muted-foreground text-sm leading-relaxed sm:text-base">
+                With pseudorandom selection, the embedding locations no longer
+                follow an obvious sequential pattern. This reduces the
+                likelihood of statistical detection by scattering modifications
+                across the image rather than following a predictable linear
+                path.
+              </p>
             </div>
           </div>
         </div>
