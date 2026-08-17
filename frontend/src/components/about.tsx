@@ -199,14 +199,15 @@ export default function About() {
           <a
             target="_blank"
             rel="noreferrer noopener"
-            href="https://exo.substack.com/p/the-exo-guide-to-data-cloaking?utm_campaign=post-expanded-share&utm_medium=web"
+            // href="https://exo.substack.com/p/the-exo-guide-to-data-cloaking?utm_campaign=post-expanded-share&utm_medium=web"
+            href="https://youtu.be/TWEXCYQKyDc"
+            className="group inline-block w-max"
           >
-            <span className="text-foreground inline-flex items-center gap-1 underline-offset-4 hover:underline">
+            <span className="text-foreground group-hover:border-foreground inline-flex items-center gap-1 border-b border-transparent pb-0.5">
               steganography
               <ArrowUpRightIcon size={12} aria-hidden="true" />
             </span>
           </a>
-          .
         </AlertDescription>
       </Alert>
 

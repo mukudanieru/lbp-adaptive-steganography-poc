@@ -4,7 +4,7 @@ import ExtractForm from "./components/extract-form";
 import { DetectiveIcon } from "@phosphor-icons/react";
 import Navbar from "./components/navbar";
 import About from "./components/about";
-import How from "./components/how";
+import How from "./components/how/how";
 
 function App() {
   return (
