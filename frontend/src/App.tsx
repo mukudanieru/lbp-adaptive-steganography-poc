@@ -6,6 +6,7 @@ import Navbar from "./components/navbar";
 import About from "./components/about";
 import How from "./components/how/how";
 import Faq from "./components/faq";
+import Footer from "./components/footer";
 
 function App() {
   return (
@@ -51,6 +52,8 @@ function App() {
       <How />
 
       <Faq />
+
+      <Footer />
     </div>
   );
 }
