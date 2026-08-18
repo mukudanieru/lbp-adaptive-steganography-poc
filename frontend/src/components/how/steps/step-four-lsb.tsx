@@ -73,17 +73,16 @@ export default function StepFourLsb() {
 
               <Alert>
                 <InfoIcon />
-                <AlertTitle>ADAPTIVE EMBEDDING</AlertTitle>
+                <AlertTitle>GREEN CHANNEL RESERVED</AlertTitle>
                 <AlertDescription>
                   The{" "}
                   <span className="text-green-800 dark:text-green-300">
                     green
                   </span>{" "}
-                  channel is never written to during embedding. That means that
-                  the extraction process independently recompute the same
-                  texture classification map from the stego image alone, no
-                  separate key file, no stored metadata. The password and the
-                  image are the only two things extraction ever needs.
+                  channel is never modified, allowing the same texture
+                  classification map to be recomputed during extraction. Only
+                  the password and stego-image are required, no separate key
+                  file or stored metadata.
                 </AlertDescription>
               </Alert>
             </div>
