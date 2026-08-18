@@ -5,23 +5,36 @@ export default function Navbar() {
   return (
     <nav className="pointer-events-none fixed top-0 right-0 left-0 z-50 flex justify-center pt-[calc(1.5rem+env(safe-area-inset-top))] pb-6">
       <div className="border-border bg-background pointer-events-auto flex items-center gap-1 overflow-x-auto rounded-full border p-1.5 whitespace-nowrap shadow-sm">
-        <button
+        <a
+          href="#top"
           aria-label="Stego home"
           className="text-foreground hover:bg-accent hover:text-accent-foreground flex items-center gap-2 rounded-full px-4 py-2 text-sm font-extrabold tracking-tighter transition"
         >
           <DetectiveIcon weight="fill" size={18} />
           <span>Stego</span>
-        </button>
+        </a>
 
         <div className="mx-1 h-4 w-px bg-white/10"></div>
 
         <div className="hidden items-center gap-1 sm:flex">
-          <button className="text-muted-foreground hover:bg-accent hover:text-accent-foreground rounded-full px-3.5 py-2 text-sm font-medium transition">
+          <a
+            href="#about"
+            className="text-muted-foreground hover:bg-accent hover:text-accent-foreground rounded-full px-3.5 py-2 text-sm font-medium transition"
+          >
             About
-          </button>
-          <button className="text-muted-foreground hover:bg-accent hover:text-accent-foreground rounded-full px-3.5 py-2 text-sm font-medium transition">
+          </a>
+          <a
+            href="#how"
+            className="text-muted-foreground hover:bg-accent hover:text-accent-foreground rounded-full px-3.5 py-2 text-sm font-medium transition"
+          >
+            How
+          </a>
+          <a
+            href="#faq"
+            className="text-muted-foreground hover:bg-accent hover:text-accent-foreground rounded-full px-3.5 py-2 text-sm font-medium transition"
+          >
             FAQ
-          </button>
+          </a>
         </div>
 
         <ModeToggle />

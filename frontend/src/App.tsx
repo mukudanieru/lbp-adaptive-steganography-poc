@@ -48,9 +48,7 @@ function App() {
       </section>
 
       <About />
-
       <How />
-
       <Faq />
 
       <Footer />

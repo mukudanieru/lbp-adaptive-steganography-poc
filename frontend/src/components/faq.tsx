@@ -33,7 +33,10 @@ const items = [
 
 export default function Faq() {
   return (
-    <section className="border-border/60 flex w-full max-w-2xl flex-col gap-6 border-t px-2 py-16 sm:py-24">
+    <section
+      id="faq"
+      className="border-border/60 flex w-full max-w-2xl scroll-mt-14 flex-col gap-6 border-t px-2 py-16 sm:py-24"
+    >
       <div className="flex flex-col gap-1">
         <p className="text-xs font-semibold tracking-wide text-sky-900 dark:text-sky-300">
           FAQ
