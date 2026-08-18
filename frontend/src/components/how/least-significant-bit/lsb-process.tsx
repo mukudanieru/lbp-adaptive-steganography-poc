@@ -101,11 +101,19 @@ export default function LSBProcess({
                 key={i}
                 className={`flex aspect-square items-center justify-center rounded-xs border text-[10px] font-bold ${
                   v === 1 ? "bg-foreground border-foreground" : "border-border"
-                } ${isCurrent ? "ring-2 ring-yellow-400 ring-inset" : ""}`}
+                } ${
+                  isCurrent
+                    ? "ring-2 ring-amber-500 ring-inset dark:ring-yellow-400"
+                    : ""
+                }`}
               >
                 {isVisited && (
                   <span
-                    className={v === 1 ? "text-background" : "text-yellow-400"}
+                    className={
+                      v === 1
+                        ? "text-background"
+                        : "text-amber-600 dark:text-yellow-400"
+                    }
                   >
                     {bits}
                   </span>
@@ -176,12 +184,12 @@ export default function LSBProcess({
             displayBits.split("").map((bit, i) => (
               <span key={i}>
                 {i === prevCursor && cursor > prevCursor && (
-                  <span className="text-yellow-400">[</span>
+                  <span className="text-amber-600 dark:text-yellow-400">[</span>
                 )}
                 <span
                   className={
                     i >= prevCursor && i < cursor
-                      ? "font-semibold text-yellow-400"
+                      ? "font-semibold text-amber-600 dark:text-yellow-400"
                       : i < prevCursor
                         ? "text-muted-foreground"
                         : "text-foreground"
@@ -190,7 +198,7 @@ export default function LSBProcess({
                   {bit}
                 </span>
                 {i === cursor - 1 && cursor > prevCursor && (
-                  <span className="text-yellow-400">]</span>
+                  <span className="text-amber-600 dark:text-yellow-400">]</span>
                 )}
                 {(i + 1) % 8 === 0 && i !== displayBits.length - 1 && " "}
               </span>

@@ -1,15 +1,15 @@
 export default function PseudorandomCode() {
   return (
     <div className="w-full min-w-0">
-      <div className="border-border overflow-hidden rounded-lg border bg-stone-900">
-        <div className="border-border text-muted-foreground border-b px-3 py-2 text-xs">
+      <div className="overflow-hidden rounded-lg border border-stone-800 bg-stone-900">
+        <div className="border-b border-stone-800 px-3 py-2 text-xs text-stone-400">
           pseudorandom.py
         </div>
         <pre className="overflow-x-auto px-3 py-3 text-[11px] leading-relaxed">
           <code>
             {/* Seed */}
             <span className="text-sky-400">seed</span>{" "}
-            <span className="text-muted-foreground">=</span>{" "}
+            <span className="text-stone-500">=</span>{" "}
             <span className="text-amber-300">6095851929708602638</span>{" "}
             <span className="text-emerald-400/80">
               # From the input password
@@ -17,37 +17,37 @@ export default function PseudorandomCode() {
             {"\n"}
             {/* Dimensions */}
             <span className="text-sky-400">image_height</span>
-            <span className="text-muted-foreground">,</span>{" "}
+            <span className="text-stone-500">,</span>{" "}
             <span className="text-sky-400">image_width</span>{" "}
-            <span className="text-muted-foreground">=</span>{" "}
+            <span className="text-stone-500">=</span>{" "}
             <span className="text-amber-300">8</span>
-            <span className="text-muted-foreground">,</span>{" "}
+            <span className="text-stone-500">,</span>{" "}
             <span className="text-amber-300">8</span>{" "}
             <span className="text-emerald-400/80"># For an 8 x 8 px image</span>
             {"\n\n"}
             {/* Linear Coordinates */}
             <span className="text-sky-400">linear_coordinates</span>{" "}
-            <span className="text-muted-foreground">=</span>{" "}
-            <span className="text-muted-foreground">[</span>
-            <span className="text-muted-foreground">(</span>
-            <span className="text-foreground">x</span>
-            <span className="text-muted-foreground">,</span>{" "}
-            <span className="text-foreground">y</span>
-            <span className="text-muted-foreground">)</span>{" "}
+            <span className="text-stone-500">=</span>{" "}
+            <span className="text-stone-500">[</span>
+            <span className="text-stone-500">(</span>
+            <span className="text-stone-200">x</span>
+            <span className="text-stone-500">,</span>{" "}
+            <span className="text-stone-200">y</span>
+            <span className="text-stone-500">)</span>{" "}
             <span className="text-pink-400">for</span>{" "}
-            <span className="text-foreground">x</span>{" "}
+            <span className="text-stone-200">x</span>{" "}
             <span className="text-pink-400">in</span>{" "}
-            <span className="text-foreground">range</span>
-            <span className="text-muted-foreground">(</span>
+            <span className="text-stone-200">range</span>
+            <span className="text-stone-500">(</span>
             <span className="text-sky-400">image_height</span>
-            <span className="text-muted-foreground">)</span>{" "}
+            <span className="text-stone-500">)</span>{" "}
             <span className="text-pink-400">for</span>{" "}
-            <span className="text-foreground">y</span>{" "}
+            <span className="text-stone-200">y</span>{" "}
             <span className="text-pink-400">in</span>{" "}
-            <span className="text-foreground">range</span>
-            <span className="text-muted-foreground">(</span>
+            <span className="text-stone-200">range</span>
+            <span className="text-stone-500">(</span>
             <span className="text-sky-400">image_width</span>
-            <span className="text-muted-foreground">)]</span>
+            <span className="text-stone-500">)]</span>
             {"\n"}
             {/* Structure Comment 1 */}
             <span className="text-emerald-400/80">
@@ -68,15 +68,15 @@ export default function PseudorandomCode() {
             {"\n"}
             {/* Shuffled Coordinates */}
             <span className="text-sky-400">random_coordinates</span>{" "}
-            <span className="text-muted-foreground">=</span>{" "}
-            <span className="text-foreground">PRNG</span>
-            <span className="text-muted-foreground">.</span>
+            <span className="text-stone-500">=</span>{" "}
+            <span className="text-stone-200">PRNG</span>
+            <span className="text-stone-500">.</span>
             <span className="text-sky-400">MersenneTwister</span>
-            <span className="text-muted-foreground">(</span>
+            <span className="text-stone-500">(</span>
             <span className="text-sky-400">seed</span>
-            <span className="text-muted-foreground">,</span>{" "}
+            <span className="text-stone-500">,</span>{" "}
             <span className="text-sky-400">linear_coordinates</span>
-            <span className="text-muted-foreground">)</span>
+            <span className="text-stone-500">)</span>
             {"\n"}
             {/* Structure Comment 2 */}
             <span className="text-emerald-400/80">

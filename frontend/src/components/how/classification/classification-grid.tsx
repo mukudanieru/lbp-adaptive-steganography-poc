@@ -39,11 +39,11 @@ export function ClassificationGrid({ map }: ClassificationGridProps) {
       </div>
 
       <div className="grid grid-cols-2 gap-2">
-        <div className="bg-card rounded-lg p-2.5">
+        <div className="bg-card border-border rounded-lg border p-2.5">
           <p className="text-muted-foreground text-xs tracking-wide">smooth</p>
           <p className="text-sm font-bold">{smoothPct}%</p>
         </div>
-        <div className="bg-card rounded-lg p-2.5">
+        <div className="bg-card border-border rounded-lg border p-2.5">
           <p className="text-muted-foreground text-xs tracking-wide">rough</p>
           <p className="text-sm font-bold">{roughPct}%</p>
         </div>

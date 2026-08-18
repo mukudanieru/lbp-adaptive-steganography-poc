@@ -36,14 +36,22 @@ export default function PseudorandomGrid({
           aspectRatio: "1",
         }}
       >
-        {flat.map((v, i) => (
-          <div
-            key={i}
-            className={`aspect-square rounded-xs border ${
-              v === 1 ? "bg-foreground border-foreground" : "border-border"
-            } ${visited.has(i) ? "border-yellow-300 bg-yellow-300" : ""}`}
-          />
-        ))}
+        {flat.map((v, i) => {
+          const isVisited = visited.has(i);
+
+          return (
+            <div
+              key={i}
+              className={`aspect-square rounded-xs border ${
+                isVisited
+                  ? "border-amber-500 bg-amber-500 dark:border-yellow-300 dark:bg-yellow-300"
+                  : v === 1
+                    ? "bg-foreground border-foreground"
+                    : "border-border"
+              }`}
+            />
+          );
+        })}
       </div>
 
       <div className="flex justify-between">

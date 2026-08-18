@@ -172,13 +172,13 @@ export default function About() {
             aria-hidden="true"
           />
           <div className="flex flex-wrap items-center justify-center gap-2">
-            <Badge>
+            <Badge className="border-border border bg-white">
               <span className="text-[rgb(43,0,0)]">R +1</span>
             </Badge>
-            <Badge>
+            <Badge className="border-border border bg-white">
               <span className="text-[rgb(0,86,0)]">G -1</span>
             </Badge>
-            <Badge>
+            <Badge className="border-border border bg-white">
               <span className="text-[rgb(0,0,33)]">B +1</span>
             </Badge>
           </div>
