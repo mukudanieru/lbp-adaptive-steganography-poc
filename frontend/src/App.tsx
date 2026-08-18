@@ -5,6 +5,7 @@ import { DetectiveIcon } from "@phosphor-icons/react";
 import Navbar from "./components/navbar";
 import About from "./components/about";
 import How from "./components/how/how";
+import Faq from "./components/faq";
 
 function App() {
   return (
@@ -48,6 +49,8 @@ function App() {
       <About />
 
       <How />
+
+      <Faq />
     </div>
   );
 }

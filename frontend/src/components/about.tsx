@@ -46,7 +46,7 @@ export default function About() {
   return (
     <section className="border-border/60 flex w-full max-w-2xl flex-col gap-6 border-t px-2 py-16 sm:py-24">
       <div className="flex flex-col gap-1">
-        <p className="text-xs font-semibold tracking-wide text-sky-300">
+        <p className="text-xs font-semibold tracking-wide text-sky-900 dark:text-sky-300">
           ABOUT
         </p>
         <h2 className="mt-2 text-2xl font-bold tracking-tight sm:text-3xl">
