@@ -9,7 +9,7 @@ export default function ImageCard({ imgSrc, label }: ImageCardProps) {
   return (
     <div className="bg-card border-border flex flex-col justify-between border px-1.5 pt-1.5 pb-1">
       <img
-        className="aspect-square h-auto w-full object-cover md:h-67 md:w-67"
+        className="aspect-square h-auto w-full object-cover"
         src={imgSrc}
         alt={displayLabel}
       />

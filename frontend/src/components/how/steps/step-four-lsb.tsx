@@ -3,6 +3,8 @@ import {
   sampleClassificationMap,
   sampleBinaryMessageStream,
 } from "../sample-data";
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
+import { InfoIcon } from "@phosphor-icons/react";
 
 export default function StepFourLsb() {
   return (
@@ -17,15 +19,28 @@ export default function StepFourLsb() {
         <div className="flex flex-col gap-7">
           <div className="flex flex-col gap-6 md:flex-row md:items-start">
             {/* INFORMATION */}
-            <p className="text-muted-foreground min-w-0 flex-1 text-sm leading-relaxed sm:text-base">
-              This is where the previous two steps come together. The Local
-              Binary Pattern already decided how much each pixel can safely
-              hide. The Pseudorandom Pixel Selection already decided where those
-              bits go. The secret message is then embedded into the least
-              significant bits of the red and blue channels, following the
-              classification and traversal sequence until the message has been
-              fully embedded.
-            </p>
+            <div className="flex flex-col gap-6">
+              <p className="text-muted-foreground min-w-0 flex-1 text-sm leading-relaxed sm:text-base">
+                This is where the previous two steps come together. The Local
+                Binary Pattern already decided how much each pixel can safely
+                hide. The Pseudorandom Pixel Selection already decided where
+                those bits go.
+              </p>
+
+              <Alert>
+                <InfoIcon />
+                <AlertTitle>ADAPTIVE EMBEDDING</AlertTitle>
+                <AlertDescription>
+                  The secret message is embedded into the least significant bits
+                  of the{" "}
+                  <span className="text-red-800 dark:text-red-300">red</span>{" "}
+                  and{" "}
+                  <span className="text-blue-800 dark:text-blue-300">blue</span>{" "}
+                  channels. Smooth pixels receive 1 bit, while rough pixels
+                  receive 2 bits according to the classification map.
+                </AlertDescription>
+              </Alert>
+            </div>
 
             {/* VISUALS */}
             <div className="w-full shrink-0 md:w-67">
@@ -46,14 +61,32 @@ export default function StepFourLsb() {
               />
             </div>
 
-            {/* INFORMATION */}
-            <p className="text-muted-foreground min-w-0 flex-1 text-sm leading-relaxed sm:text-base">
-              Extraction follows the same process in reverse. Using the same
-              password, the algorithm reproduces the pseudorandom pixel order
-              and classification map, then reads 1 or 2 bits from each pixel
-              according to its texture classification. The recovered bit stream
-              is then reconstructed into the original message.
-            </p>
+            <div className="flex flex-col gap-6">
+              {/* INFORMATION */}
+              <p className="text-muted-foreground min-w-0 flex-1 text-sm leading-relaxed sm:text-base">
+                Extraction follows the same process in reverse. Using the same
+                password, the algorithm reproduces the pseudorandom pixel order
+                and classification map, then reads 1 or 2 bits from each pixel
+                according to its texture classification. The recovered bit
+                stream is then reconstructed into the original message.
+              </p>
+
+              <Alert>
+                <InfoIcon />
+                <AlertTitle>ADAPTIVE EMBEDDING</AlertTitle>
+                <AlertDescription>
+                  The{" "}
+                  <span className="text-green-800 dark:text-green-300">
+                    green
+                  </span>{" "}
+                  channel is never written to during embedding. That means that
+                  the extraction process independently recompute the same
+                  texture classification map from the stego image alone, no
+                  separate key file, no stored metadata. The password and the
+                  image are the only two things extraction ever needs.
+                </AlertDescription>
+              </Alert>
+            </div>
           </div>
         </div>
       </div>

@@ -76,11 +76,13 @@ export default function About() {
 
       <p className="text-muted-foreground text-sm leading-relaxed sm:text-base">
         Each pixel in a standard digital image is represented by three numerical
-        values corresponding to the <span className="text-red-300">red</span>,{" "}
-        <span className="text-green-300">green</span>, and{" "}
-        <span className="text-blue-300">blue</span> (RGB) color channels,
-        typically ranging from 0 to 255. The least significant bit is the
-        lowest-order bit in the binary representation of these values.
+        values corresponding to the{" "}
+        <span className="text-red-800 dark:text-red-300">red</span>,{" "}
+        <span className="text-green-800 dark:text-green-300">green</span>, and{" "}
+        <span className="text-blue-800 dark:text-blue-300">blue</span> (RGB)
+        color channels, typically ranging from 0 to 255. The least significant
+        bit is the lowest-order bit in the binary representation of these
+        values.
       </p>
 
       <div className="flex flex-col items-center gap-8 md:flex-row md:justify-center md:gap-14">
