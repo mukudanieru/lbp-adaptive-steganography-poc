@@ -61,8 +61,42 @@ npm run dev
 
 The application will be available at `http://localhost:5173` (or the port Vite assigns).
 
-4. To build for production:
+## Production Build
+
+In production, FastAPI serves the built React app directly - no separate frontend server, single origin, no CORS.
+
+1. Build the frontend (outputs into `backend/static`):
 
 ```bash
+cd frontend
+npm install
 npm run build
 ```
+
+2. Run the backend:
+
+```bash
+cd backend
+pip install -r requirements.txt
+uvicorn main:app --host 0.0.0.0 --port 8000
+```
+
+The full app, frontend and API, will be available at http://127.0.0.1:8000.
+
+## Deployment (Render)
+
+The app deploys as a single Render Web Service. Connect the repo and use:
+
+**Build command:**
+
+```bash
+cd frontend && npm install && npm run build && cd ../backend && pip install -r requirements.txt
+```
+
+**Start command:**
+
+```bash
+cd backend && uvicorn main:app --host 0.0.0.0 --port $PORT
+```
+
+Render assigns `$PORT` dynamically - don't hardcode it. Root directory can be left blank (repo root); the build command handles moving between `frontend/` and `backend/`.
