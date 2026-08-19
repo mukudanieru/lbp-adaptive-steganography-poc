@@ -4,30 +4,44 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
-const items = [
+
+const faqItems = [
   {
-    value: "item-1",
+    value: "project",
     trigger: "What is this project all about?",
     content:
-      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Praesentium eos nostrum, officiis commodi odio quisquam, velit hic eaque qui nihil ullam quos perferendis perspiciatis cum laboriosam voluptate obcaecati reiciendis quam.",
+      "This project is based on a thesis study that proposes a texture-adaptive image steganography method using Local Binary Pattern (LBP) and pseudorandom pixel selection. Stego is the proof-of-concept application of the proposed method, allowing users to experiment with embedding and extracting hidden messages from images.",
   },
   {
-    value: "item-2",
+    value: "formats",
     trigger: "What image formats are supported?",
     content:
-      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Praesentium eos nostrum, officiis commodi odio quisquam, velit hic eaque qui nihil ullam quos perferendis perspiciatis cum laboriosam voluptate obcaecati reiciendis quam.",
+      "The method was evaluated using lossless PNG, BMP, and TIFF images. These formats preserve the pixel-level changes required by the embedding and extraction process.",
   },
   {
-    value: "item-3",
+    value: "capacity",
     trigger: "How much data can an image hold?",
-    content:
-      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Praesentium eos nostrum, officiis commodi odio quisquam, velit hic eaque qui nihil ullam quos perferendis perspiciatis cum laboriosam voluptate obcaecati reiciendis quam.",
+    content: (
+      <>
+        The maximum capacity depends on the texture of the cover image. Smooth
+        pixels can carry 2 bits (1 bit in the{" "}
+        <span className="text-red-700 dark:text-red-300">red channel</span> and
+        1 bit in the{" "}
+        <span className="text-blue-700 dark:text-blue-300">blue channel</span>),
+        while rough pixels can carry 4 bits (2 bits in the{" "}
+        <span className="text-red-700 dark:text-red-300">red channel</span> and
+        2 bits in the{" "}
+        <span className="text-blue-700 dark:text-blue-300">blue channel</span>).
+        As a result, images with more textured regions generally provide greater
+        embedding capacity.
+      </>
+    ),
   },
   {
-    value: "item-4",
+    value: "password",
     trigger: "Is any password supported?",
     content:
-      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Praesentium eos nostrum, officiis commodi odio quisquam, velit hic eaque qui nihil ullam quos perferendis perspiciatis cum laboriosam voluptate obcaecati reiciendis quam.",
+      "Yes, you can use a password of your choice, but the password cannot be left empty. The same password must be provided during extraction so the algorithm can reproduce the same pseudorandom pixel sequence and recover the hidden message.",
   },
 ];
 
@@ -47,7 +61,7 @@ export default function Faq() {
       </div>
 
       <Accordion type="single" collapsible defaultValue="item-1">
-        {items.map((item) => (
+        {faqItems.map((item) => (
           <AccordionItem key={item.value} value={item.value}>
             <AccordionTrigger className="text-sm leading-relaxed sm:text-base">
               {item.trigger}
