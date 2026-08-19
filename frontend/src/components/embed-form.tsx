@@ -10,7 +10,7 @@ import { toast } from "sonner";
 import { Progress } from "./ui/progress";
 import { Spinner } from "./ui/spinner";
 import { Skeleton } from "./ui/skeleton";
-import { DownloadIcon } from "@phosphor-icons/react";
+import { DownloadIcon, XIcon } from "@phosphor-icons/react";
 import PasswordInput from "./password-input";
 import type { MetricsResponse } from "@/types/stego";
 
@@ -89,6 +89,21 @@ export default function EmbedForm() {
     setMetrics(null);
   };
 
+  const handleClear = () => {
+    setFile(null);
+    setPreview((prev) => {
+      if (prev) URL.revokeObjectURL(prev);
+      return null;
+    });
+    setStego((prev) => {
+      if (prev) URL.revokeObjectURL(prev.url);
+      return null;
+    });
+    setMetrics(null);
+    // setPassword("");
+    // setMessage("");
+  };
+
   useEffect(() => {
     return () => {
       if (preview) URL.revokeObjectURL(preview);
@@ -106,26 +121,26 @@ export default function EmbedForm() {
   return (
     <form onSubmit={handleSubmit} className="w-full space-y-4">
       <div className="space-y-4">
-        <div className="flex flex-col items-center gap-4 sm:flex-row sm:justify-center">
-          <div className="flex flex-col items-center space-y-1">
+        <div className="flex flex-wrap items-center justify-center gap-4">
+          <div className="flex w-full flex-col items-center space-y-1 md:w-auto">
             <p className="text-sm font-medium">Cover Image</p>
             <ImageDropzone preview={preview} onDrop={handleDrop} />
           </div>
 
           {(isPending || stego) && (
-            <div className="flex flex-col items-center space-y-1">
+            <div className="flex w-full flex-col items-center space-y-1 md:w-auto">
               <p className="text-sm font-medium">Stego Image</p>
               {isPending ? (
-                <Skeleton className="size-64 rounded-lg" />
+                <Skeleton className="aspect-video w-full rounded-lg md:aspect-auto md:h-67 md:w-96" />
               ) : (
                 <div
                   role="button"
                   onClick={handleDownload}
-                  className="border-border relative size-64 cursor-pointer overflow-hidden rounded-lg border-2"
+                  className="border-border relative w-full max-w-full cursor-pointer overflow-hidden rounded-lg border-2 md:h-67 md:w-fit"
                 >
                   <img
                     src={stego!.url}
-                    className="absolute inset-0 h-full w-full object-cover"
+                    className="h-auto w-full object-contain md:h-full md:w-auto md:max-w-full"
                   />
                   <div className="bg-background/70 text-foreground absolute inset-0 flex flex-col items-center justify-center gap-2 opacity-0 transition-opacity hover:opacity-100">
                     <DownloadIcon className="h-6 w-6" />
@@ -153,6 +168,19 @@ export default function EmbedForm() {
                 <p className="mt-1 font-mono text-sm font-medium">{value}</p>
               </div>
             ))}
+          </div>
+        )}
+
+        {file && (
+          <div className="flex w-full justify-center">
+            <button
+              type="button"
+              onClick={handleClear}
+              className="text-muted-foreground hover:text-foreground flex items-center gap-1.5 text-sm font-medium transition-colors hover:cursor-pointer"
+            >
+              <XIcon />
+              Clear
+            </button>
           </div>
         )}
       </div>
@@ -183,9 +211,11 @@ export default function EmbedForm() {
         />
         {file && (
           <FieldDescription>
-            {isLoading
-              ? "Calculating capacity..."
-              : `${used} / ${capacity} characters`}
+            {isLoading ? (
+              <span className="animate-pulse">Calculating capacity...</span>
+            ) : (
+              `${used} / ${capacity} characters`
+            )}
           </FieldDescription>
         )}
         {file && !isLoading && (

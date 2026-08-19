@@ -50,7 +50,9 @@ export default function ImageDropzone({ preview, onDrop }: ImageDropzoneProps) {
   return (
     <div
       {...getRootProps()}
-      className={`relative size-64 cursor-pointer overflow-hidden rounded-lg border-2 border-dashed transition-colors ${
+      className={`relative w-full max-w-full cursor-pointer overflow-hidden rounded-lg border-2 border-dashed transition-colors md:h-67 ${
+        preview ? "md:w-fit" : "aspect-video md:w-auto"
+      } ${
         isDragActive
           ? "border-primary bg-primary/5"
           : "border-border hover:border-primary/50"
@@ -62,7 +64,7 @@ export default function ImageDropzone({ preview, onDrop }: ImageDropzoneProps) {
         <>
           <img
             src={preview}
-            className="absolute inset-0 h-full w-full object-cover"
+            className="h-auto w-full object-contain md:h-full md:w-auto md:max-w-full"
           />
           <div className="bg-background/70 text-foreground absolute inset-0 flex flex-col items-center justify-center gap-2 opacity-0 transition-opacity hover:opacity-100">
             <ImageIcon className="h-6 w-6" />

@@ -3,7 +3,7 @@ import ImageDropzone from "@/components/image-dropzone";
 import { Button } from "@/components/ui/button";
 import { Field, FieldLabel } from "@/components/ui/field";
 import { Spinner } from "@/components/ui/spinner";
-import { CopyIcon, CheckIcon } from "@phosphor-icons/react";
+import { CopyIcon, CheckIcon, XIcon } from "@phosphor-icons/react";
 import { useMutation } from "@tanstack/react-query";
 import { useState } from "react";
 import { toast } from "sonner";
@@ -33,6 +33,16 @@ export default function ExtractForm() {
     mutate({ image: file, password });
   };
 
+  const handleClear = () => {
+    setFile(null);
+    setPreview((prev) => {
+      if (prev) URL.revokeObjectURL(prev);
+      return null;
+    });
+    setMessage("");
+    setCopied(false);
+  };
+
   const handleCopy = () => {
     navigator.clipboard.writeText(message);
     setCopied(true);
@@ -41,7 +51,7 @@ export default function ExtractForm() {
 
   return (
     <form onSubmit={handleSubmit} className="w-full space-y-4">
-      <div className="flex flex-col items-center space-y-1">
+      <div className="flex flex-col items-center gap-3 space-y-1">
         <p className="text-sm font-medium">Stego Image</p>
         <ImageDropzone
           preview={preview}
@@ -51,8 +61,19 @@ export default function ExtractForm() {
               if (prev) URL.revokeObjectURL(prev);
               return url;
             });
+            setMessage("");
           }}
         />
+        {file && (
+          <button
+            type="button"
+            onClick={handleClear}
+            className="text-muted-foreground hover:text-foreground mt-1 flex items-center gap-1.5 text-sm font-medium transition-colors hover:cursor-pointer"
+          >
+            <XIcon />
+            Clear
+          </button>
+        )}
       </div>
 
       <Field>
