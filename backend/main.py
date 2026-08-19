@@ -3,10 +3,11 @@ FastAPI application entry point
 """
 
 import os
+from pathlib import Path
 
 from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.responses import JSONResponse
+from fastapi.responses import FileResponse, JSONResponse
 from routers.stego import router as stego_router
 
 app = FastAPI(
@@ -37,3 +38,17 @@ async def global_exception_handler(request: Request, exc: Exception) -> JSONResp
 @app.get("/api/health")
 async def health() -> dict:
     return {"status": "ok"}
+
+
+# --- Serve the built React SPA ---
+# If there is such thing
+STATIC_DIR = Path(__file__).resolve().parent / "static"
+
+if STATIC_DIR.is_dir():
+
+    @app.get("/{full_path:path}")
+    async def serve_spa(full_path: str) -> FileResponse:
+        candidate = STATIC_DIR / full_path
+        if candidate.is_file():
+            return FileResponse(candidate)
+        return FileResponse(STATIC_DIR / "index.html")

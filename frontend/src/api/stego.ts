@@ -8,14 +8,9 @@ import type {
 
 export async function getCapacity(image: File): Promise<CapacityResponse> {
   const formData = new FormData();
-
   formData.append("image", image);
 
-  const response = await api.post<CapacityResponse>("/capacity", formData, {
-    headers: {
-      "Content-Type": "multipart/form-data",
-    },
-  });
+  const response = await api.post<CapacityResponse>("/capacity", formData);
 
   return response.data;
 }
@@ -26,15 +21,11 @@ export async function embedMessage(
   password: string,
 ): Promise<{ blob: Blob; filename: string }> {
   const formData = new FormData();
-
   formData.append("image", image);
   formData.append("message", message);
   formData.append("password", password);
 
   const response = await api.post("/embed", formData, {
-    headers: {
-      "Content-Type": "multipart/form-data",
-    },
     responseType: "blob",
   });
 
@@ -57,15 +48,10 @@ export async function extractMessage(
   password: string,
 ): Promise<ExtractResponse> {
   const formData = new FormData();
-
   formData.append("image", image);
   formData.append("password", password);
 
-  const response = await api.post<ExtractResponse>("/extract", formData, {
-    headers: {
-      "Content-Type": "multipart/form-data",
-    },
-  });
+  const response = await api.post<ExtractResponse>("/extract", formData);
 
   return response.data;
 }
@@ -78,9 +64,7 @@ export async function getMetrics(
   formData.append("cover", cover);
   formData.append("stego", stego);
 
-  const response = await api.post<MetricsResponse>("/metrics", formData, {
-    headers: { "Content-Type": "multipart/form-data" },
-  });
+  const response = await api.post<MetricsResponse>("/metrics", formData);
 
   return response.data;
 }
