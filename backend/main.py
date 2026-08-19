@@ -10,10 +10,15 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import FileResponse, JSONResponse
 from routers.stego import router as stego_router
 
+IS_PRODUCTION = os.getenv("ENVIRONMENT", "development") == "production"
+
 app = FastAPI(
     title="Adaptive LSB Steganography API",
     description="Embed and extract hidden messages in images using texture-adaptive LSB steganography.",
     version="1.0.0",
+    docs_url=None if IS_PRODUCTION else "/docs",
+    redoc_url=None if IS_PRODUCTION else "/redoc",
+    openapi_url=None if IS_PRODUCTION else "/openapi.json",
 )
 
 app.add_middleware(
